@@ -27,7 +27,7 @@ Set  SERPAPI_API_KEY as an environment variable taking SERPAPI_KEY from the SERP
 a. sentencetransformers : Embedding model of the project
 b. qdrant_client : Connections to the qdrant database
 c. gradio : Front-end web page
-d. gpt4all : LLM model of the project 
+d. gpt4all : LLM model package of the project (used Meta-Llama-3 for better responses , however previously tested with Orca-mini which has provided faster responses due to small size of the model)
 e. fitz : conversion of pdf files to text files to support use in sentence transformers
 
 4. Docker Setup - qdrant Vector Database Setup
@@ -57,7 +57,7 @@ e. The bot presents the answer along with citations from the relevant course mat
 ----------------------------------------------------------------------------------------
 Video: Video has been uploaded to the github repositary to show how chatbot is working and shows the packet transfer in the wireshark as well.
 ----------------------------------------------------------------------------------------
-6. Features:
+Features:
 a. Understanding and answering questions
 •	The chatbot understands the prompts given by the user and gives the answers based on the a.
 b. Citations and web references
@@ -67,7 +67,7 @@ c. Data Security and privacy
 d. Offline functionality
 •	The bot answers the prompt even without internet.
 ----------------------------------------------------------------------------------------
-7.Issues we experienced and the solutions:
+Issues we experienced and the solutions:
 a. Pdf parsing:
 Issue:
 •	If the data(lectures) is not structured properly then the chatbot might not correctly read that which results in incorrect response.
@@ -79,7 +79,7 @@ Issue:
 Solution:
 •	Indexing documents and storing embeddings in Qdrant.
 ----------------------------------------------------------------------------------------
-8.Suggestions for future improvement:
+Suggestions for future improvement:
 
 a. Enhancing UI design:
 •	Integrating features like follow-up question and custom responses.
@@ -88,11 +88,11 @@ b. Performance optimization:
 c. Ambiguity handling:
 •	Improve the bot to understand the ambiguous queries also.
 ----------------------------------------------------------------------------------------
-9.Feedback:
+Feedback:
 a. Offline functionality: The bot runs without internet also.
 b. Data security and Privacy: The Chatbot runs on the local machine ,ensures data security abd privacy
 c. Citations: The bot provide the citations if it takes information from slides and provides web reference if the information pulled from internet.
-
+----------------------------------------------------------------------------------------
 
 
 
