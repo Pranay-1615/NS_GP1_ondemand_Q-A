@@ -5,7 +5,7 @@ import os
 import uuid  # Import UUID module
 
 # Initialize the sentence transformer model for embeddings
-embedder = SentenceTransformer('all-MiniLM-L6-v2')
+embedder = SentenceTransformer('all-MiniLM-L12-v2')
 
 # Connect to Qdrant (Ensure Qdrant is running on localhost:6333)
 qdrant_client = QdrantClient(host="localhost", port=6333)
@@ -54,5 +54,5 @@ def process_pdfs(directory):
 
 if __name__ == "__main__":
     # Provide the directory containing the PDFs
-    pdf_path = r"C:\Users\prudh\Downloads\Knowledge Documents"
+    pdf_path = r"C:\Users\prudh\Downloads\References"
     process_pdfs(pdf_path)

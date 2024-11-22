@@ -6,20 +6,20 @@ import requests
 
 
 # Load the embedding model
-embedder = SentenceTransformer("all-MiniLM-L6-v2")
+embedder = SentenceTransformer("all-MiniLM-L12-v2")
 
 # Connect to Qdrant
 qdrant_client = QdrantClient(host="localhost", port=6333)
 
 # Load the GPT4All model
 model_path = "Meta-Llama-3-8B-Instruct.Q4_0.gguf"  # Update this path if needed
-gpt4all_model = GPT4All(model_path, allow_download=False)
+gpt4all_model = GPT4All(model_path)
 
 collection_name = "network_security_knowledge"
 
 SERPAPI_API_KEY = "7fa7214ef761e09c624ba83150a6881f0238327672d3fe4023bc65610c566cc8"
 
-relevance_threshold = 0.6 #choose relevance threshold to improve the output
+relevance_threshold = 0.4 #choose relevance threshold to improve the output
 
 def find_relevant_document(prompt):
     question_embedding = embedder.encode([prompt])[0]
@@ -27,8 +27,7 @@ def find_relevant_document(prompt):
     # Perform a search in the Qdrant database
     search_results = qdrant_client.search(
         collection_name=collection_name,
-        query_vector=question_embedding.tolist(),
-        limit=10  
+        query_vector=question_embedding.tolist(), 
         )
 
     # Prepare the output
@@ -51,7 +50,7 @@ def web_search(query):
         "q": query,
         "api_key": SERPAPI_API_KEY,
         "engine": "google",
-        "num" : 3
+        "num" : 1
     }
     response = requests.get(url, params=params)
     if response.status_code == 200:
@@ -77,9 +76,7 @@ def generate_response(prompt):
         for i in relevant_pages:
             context_prompt += f"{i['reference']}\n\n"
         response = gpt4all_model.generate(context_prompt)
-        response = response.strip() 
         source = "\n".join([f"Document: {page['document_name']}, Page: {page['page_number']}\nReference: {page['reference']}\n" for page in relevant_pages])
-        
     else:
         source = "No relevant information found in the documents, Searching from Internet\n"
         resp1 = web_search(prompt)
@@ -87,7 +84,6 @@ def generate_response(prompt):
         source+=resp1[1]
 
     return response, source
-
     
     
 
